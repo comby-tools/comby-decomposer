@@ -133,17 +133,16 @@ just uses [Comby](https://github.com/comby-tools/comby) to do the decomposition
 work. 
 
 
-The basic idea is that `comby-decomposer` creates
-inputs _that are much more likely to be syntactically valid expressions_ inside
-_previously valid (now templatized) programs_. Generating inputs with templates
-and likely-valid expressions help nudge a feedback-directed fuzzer (like AFL)
-to to explore deeper, more interesting code in a compiler _earlier_ than just
-starting with a compiler's initial test suite. So, instead of using only an
-initial test corpus, `comby-decomposer` helps generate templates and fragments
-that synthesizes new test programs on demand. We bank on the idea that these
-new test programs are likely-syntactically-valid and helps the fuzzer avoid
-spending a long time to discover or randomly invent inputs that get
-past a compiler's parsing phase.
+The basic idea is that `comby-decomposer` creates inputs _that are much more
+likely to be syntactically valid expressions_ inside _previously valid (now
+templatized) programs_. Generating inputs with templates and likely-valid
+expressions help nudge a feedback-directed fuzzer (like AFL) to explore
+"deeper" code in a compiler _earlier_ than, say, just starting with a
+compiler's initial test suite. So, instead of using only an initial test
+corpus, `comby-decomposer` helps generate templates and fragments for
+synthesizing new test programs on demand. It banks on the idea that these
+inputs are unlikely to be generated early (or at all) by default input
+mutations in a fuzzer's feedback loop.
 
 For example, `comby-decomposer` generated this Solidity program that [sent the compiler into an infinite loop](https://github.com/ethereum/solidity/issues/10732):
 
