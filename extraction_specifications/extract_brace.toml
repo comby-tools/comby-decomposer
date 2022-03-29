@@ -1,0 +1,2 @@
+[extract_brace]
+match='{:[1]}'
