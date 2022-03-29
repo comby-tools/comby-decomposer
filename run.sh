@@ -66,6 +66,7 @@ for s in `ls ${SOURCES}/*${EXTENSION}`; do
     if [ ! -z "$1" ]; then
         MAX_DEPTH=10
 
+        echo -n "depth"
         for i in `seq 1 "$MAX_DEPTH"`; do
             cd $EXTRACTED_FOR_FILE
             mkdir $EXTRACTED_FOR_FILE
@@ -75,7 +76,7 @@ for s in `ls ${SOURCES}/*${EXTENSION}`; do
                     | python $PYTHON_EXTRACTOR $EXTRACTED_FOR_FILE $EXTENSION
             done
             if [ -z "$(ls -A -- $EXTRACTED_FOR_FILE)" ]; then
-                echo 'Nothing generated, stopping'
+                echo 'Nothing more to generate, stopping'
                 rm -rf $EXTRACTED_FOR_FILE
                 break
             fi
@@ -123,12 +124,14 @@ rm -rf $EXTRACTED
 
 # strip comments and dedup templates (had no holes, wasn't templatized).
 $COMBY -matcher .txt '//:[x\n]' '' -d $TEMPLATES $EXTENSION -i
-fdupes -dN $TEMPLATES &> /dev/null
+fdupes -dN $TEMPLATES > /dev/null
 find $TEMPLATES -name "*.delete.me.123" -exec rm {} \;
 
 # dedup concrete fragments (for files that share fragments).
 $COMBY -matcher .txt '//:[x\n]' '' -d $FRAGMENTS $EXTENSION -i
-fdupes -dN $FRAGMENTS &> /dev/null
+fdupes -dN $FRAGMENTS > /dev/null
 echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-echo "Extracted this many total concrete fragments:"
+echo -n "Extracted this many total concrete fragments: "
 ls $FRAGMENTS | wc -l
+echo -n "Created this many total templates: "
+ls $TEMPLATES | wc -l
