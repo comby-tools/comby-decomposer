@@ -3,8 +3,15 @@
 `comby-decomposer` is a tool that automatically decomposes program syntax into
 (1) a set of templates and (2) a set of concrete fragments extracted from the
 syntax. Basically, it _un_-substitutes some input file to create a corpus of
-templates and fragments. You can then use mix-and-match templates and fragments
-and substitute these back in to create new combinations of output "programs".
+templates and fragments. 
+
+Here's a visual example of outputs when we decompose a function with respect to parentheses `(...)` and braces `{...}`.
+
+![decompose](https://user-images.githubusercontent.com/888624/160704921-511c0609-5877-4a8e-ab39-f641baafd846.svg)
+
+
+You can then use mix-and-match templates and fragments
+and substitute these back in to create new combinations of output "programs". It's been most useful [for fuzzing compilers](#why-comby-decomposer-mostly-for-fuzzing-compilers).
 
 
 ## Running
@@ -42,7 +49,7 @@ and check out examples in `templates` and `fragments`!
 
 By default programs are decomposed around delimiter syntax like `(...)`,
 `{...}` and `[...]`. This means that `comby-decomposer` looks for this syntax
-and un-substitutes the program around these patterns.  You can use any comby
+and un-substitutes the program around these patterns. It will also look for nested syntax inside these. You can use any comby
 pattern you like though! I These patterns are defined inside
 `extraction_specifications` using a simple [configuration file](https://comby.dev/docs/configuration) and you'll find the default ones
 for parentheses, braces, and brackets in there already. But if you wanted to
