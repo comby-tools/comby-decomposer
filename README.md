@@ -93,7 +93,7 @@ If you have many or large programs to decompose, you can run `./postprocess.sh` 
 
 Look inside the `postprocess.sh` to customize it.
 
-### On-demand input generation
+## On-demand input generation
 
 If you have `templates` and `fragments` and want to randomly generate new
 programs by substituting fragments into templates, you can use the included
@@ -115,7 +115,7 @@ the `templates` directory, and substitutes up to `10` random fragments  from
 the `fragments` directory. If you want more control over server generation
 you'll have to dig into `server.js`.
 
-### Customizing language grammar target
+## Customizing language grammar target
 
 Comby supports a lot of languages (see `comby -list` for supported ones),
 but even if you just created one, you'll probably get some mileage from using
