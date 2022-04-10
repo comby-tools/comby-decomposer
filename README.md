@@ -124,7 +124,13 @@ the generic parser and default patterns: `./run .my-language-extension .generic`
 ## Why `comby-decomposer`? Mostly for fuzzing compilers...
 
 `comby-decomposer` was created to generate inputs to fuzz compilers, but it can
-be used for other things too.  The fun part is `comby-decomposer` is
+be used for other things too. We can substitute
+and recombine templates and fragments to create new inputs.
+
+![compiler-fuzz](https://user-images.githubusercontent.com/888624/162598488-5b6edf85-a3ff-4fc9-87f8-131005fb2ad8.svg)
+
+
+The fun part is `comby-decomposer` is
 syntax-aware and works on most any language (or structured input like JSON) to
 some degree, and you can get started right away: You just need some example
 programs for your program. No need to define a grammar to generate inputs, or
