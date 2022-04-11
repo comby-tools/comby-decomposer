@@ -115,6 +115,8 @@ the `templates` directory, and substitutes up to `10` random fragments  from
 the `fragments` directory. If you want more control over server generation
 you'll have to dig into `server.js`.
 
+### See https://github.com/agroce/afl-compiler-fuzzer#01-usage to use the server with an AFL fuzzer
+
 ## Customizing language grammar target
 
 Comby supports a lot of languages (see `comby -list` for supported ones),
@@ -123,12 +125,12 @@ the generic parser and default patterns: `./run .my-language-extension .generic`
 
 ## Why `comby-decomposer`? Mostly for fuzzing compilers...
 
-`comby-decomposer` was created to generate inputs to fuzz compilers, but it can
-be used for other things too. We can substitute
+`comby-decomposer` was created to generate inputs to fuzz compilers. We can substitute
 and recombine templates and fragments to create new inputs.
 
 ![compiler-fuzz](https://user-images.githubusercontent.com/888624/162598488-5b6edf85-a3ff-4fc9-87f8-131005fb2ad8.svg)
 
+### If you want to use it with an AFL fuzzer that's been modified to request inputs from the server, see https://github.com/agroce/afl-compiler-fuzzer#01-usage.
 
 The fun part is `comby-decomposer` is
 syntax-aware and works on most any language (or structured input like JSON) to
