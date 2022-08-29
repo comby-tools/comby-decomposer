@@ -128,7 +128,8 @@ the generic parser and default patterns: `./run .my-language-extension .generic`
 `comby-decomposer` was created to generate inputs to fuzz compilers. We can substitute
 and recombine templates and fragments to create new inputs.
 
-![compiler-fuzz](https://user-images.githubusercontent.com/888624/162598488-5b6edf85-a3ff-4fc9-87f8-131005fb2ad8.svg)
+![image](https://user-images.githubusercontent.com/888624/187160236-1da1afdf-7650-45d8-8ce8-85fde06cd599.png)
+
 
 ### If you want to use it with an AFL fuzzer that's been modified to request inputs from the server, see https://github.com/agroce/afl-compiler-fuzzer#01-usage.
 
