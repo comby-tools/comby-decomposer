@@ -103,8 +103,15 @@ server. Just run these commands:
 npm install express body-parser @iarna/toml minimist
 
 export NODE_OPTIONS="--max-old-space-size=8192"
-node server.js --generate 1.0
+ulimit -s unlimited
+node --stack-size=60000 server.js --generate 1.0
 ```
+
+The larger stack matters: with Node's default stack, substituting into large
+templates can fail with `Stack_overflow` errors from `comby.js` (the server
+then answers HTTP 500). With a Lua test-suite corpus, that was about 40% of
+requests with the default stack, and none with the settings above. Note that
+`--stack-size` needs a matching OS stack limit, hence the `ulimit`.
 
 Then in a separate terminal, request a new input:
 
@@ -115,7 +122,11 @@ the `templates` directory, and substitutes up to `10` random fragments  from
 the `fragments` directory. If you want more control over server generation
 you'll have to dig into `server.js`.
 
-### See https://github.com/agroce/afl-compiler-fuzzer#01-usage to use the server with an AFL fuzzer
+### Using the server with a fuzzer
+
+- AFL++: the `compiler_fuzzer` custom mutators (`comby-mutator.so` asks this server for inputs), see https://github.com/AFLplusplus/AFLplusplus/tree/stable/custom_mutators/compiler_fuzzer
+- LibAFL: `CombyMutator` in https://github.com/agroce/compiler-fuzzer-mutations
+- The original AFL 2.56b-based fuzzer: https://github.com/agroce/afl-compiler-fuzzer#01-usage
 
 ## Customizing language grammar target
 
@@ -131,7 +142,7 @@ and recombine templates and fragments to create new inputs.
 ![image](https://user-images.githubusercontent.com/888624/187160236-1da1afdf-7650-45d8-8ce8-85fde06cd599.png)
 
 
-### If you want to use it with an AFL fuzzer that's been modified to request inputs from the server, see https://github.com/agroce/afl-compiler-fuzzer#01-usage.
+### To use it with a fuzzer that requests inputs from the server (AFL++, LibAFL, or the original afl-compiler-fuzzer), see [Using the server with a fuzzer](#using-the-server-with-a-fuzzer).
 
 The fun part is `comby-decomposer` is
 syntax-aware and works on most any language (or structured input like JSON) to
