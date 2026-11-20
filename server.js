@@ -29,7 +29,8 @@ var LOAD_IN_MEMORY = false;
 var TEMPLATES_IN_MEMORY = [];
 var FRAGMENTS_IN_MEMORY = [];
 
-app.use(bodyParser.text());
+// Fuzzer inputs can exceed body-parser's default 100kb limit (AFL's max is 1MB).
+app.use(bodyParser.text({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 
 function loadRules() {
